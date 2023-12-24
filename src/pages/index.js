@@ -1,0 +1,10 @@
+export { Admin } from "./admin";
+export { Login } from "./login";
+export { Comanda } from "./comanda";
+export { EditeProduto } from "./editeProduto";
+export { ListaComandas } from "./listaComandas";
+export { CadastroProdutos } from "./cadatroProdutos";
+export { ShowEditProdutos } from "./ShowEditProdutos";
+export { ListagemProdutos } from "./listagemProdutos";
+export { FinalizarComanda } from "./finalizarComanda";
+export { GerenciarUsuarios } from "./gerenciarUsuarios";
