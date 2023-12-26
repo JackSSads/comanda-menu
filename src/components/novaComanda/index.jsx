@@ -8,7 +8,7 @@ import socket from "../../service/socket";
 export const NovaComanda = () => {
 
     const [nameClient, setCliente] = useState("");
-    const [vessel, setEmbarcacao] = useState("");
+    const [vessel, setEmbarcacao] = useState("Dunas");
     const [buttonDisabled, setButtonDisabled] = useState(false);
 
     const { visibilitNewTicket, setVisibilitNewTicket } = usePage();
@@ -27,7 +27,7 @@ export const NovaComanda = () => {
         };
 
         if (vessel === "") {
-            setEmbarcacao("Avante");
+            setEmbarcacao("Dunas");
         };
 
         if (nameClient !== "" && vessel !== "") {
@@ -75,20 +75,6 @@ export const NovaComanda = () => {
                             placeholder="Nome do cliente"
                             onChange={(e) => handleValue("nameClient", e)}
                             value={nameClient}
-                        />
-                    </label>
-
-                    <label className="w-[270px] text-sm font-bold mb-2 text-slate-400">
-                        Embarcação:
-                        <input
-                            className="text-white bg-transparent border border-[#393636] rounded-xl w-full p-3 leading-tight focus:outline-none focus:shadow-outline"
-                            type="text"
-                            id="emcarcacao"
-                            name="vessel"
-                            required
-                            placeholder="Nome da embarcação"
-                            onChange={(e) => handleValue("vessel", e)}
-                            value={vessel}
                         />
                     </label>
                 </div>
