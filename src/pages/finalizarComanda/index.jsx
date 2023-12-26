@@ -15,6 +15,7 @@ export const FinalizarComanda = () => {
     const [vessel, setVessel] = useState("");
     const [products, setProducts] = useState([]);
     const [totalValue, setTotalValue] = useState(0);
+    const [taxa, setTaxa] = useState(0);
     const [client, setClient] = useState("");
 
     const [comanda, setComanda] = useState([]);
@@ -53,6 +54,9 @@ export const FinalizarComanda = () => {
                     setProducts(result.data.products);
                     setVessel(result.data.vessel);
                     setComanda(result.data);
+                    setTaxa(() => {
+                        return result.data.totalValue + (result.data.totalValue * 0.1);
+                    });
                 });
 
         } catch (error) {
@@ -149,8 +153,12 @@ export const FinalizarComanda = () => {
                         ))}
                     </ul>
 
+                    <h2 className="mt-10 text-center text-slate-900 font-bold text-[20px]">
+                        Consumo: <span className="text-slate-500">R$ {parseFloat(totalValue).toFixed(2).replace(".", ",")}</span>
+                    </h2>
+
                     <h2 className="mt-5 text-center text-slate-900 font-bold text-[28px]">
-                        Total: <span className="text-slate-500">R$ {parseFloat(totalValue).toFixed(2).replace(".", ",")}</span>
+                        Total: <span className="text-slate-500">R$ {parseFloat(taxa).toFixed(2).replace(".", ",")}</span>
                     </h2>
                 </div>
 
