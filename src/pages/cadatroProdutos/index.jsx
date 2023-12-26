@@ -42,7 +42,7 @@ export const CadastroProdutos = () => {
                     if (result.status) toast.success(result.message);
 
                     setValue("");
-                    setCategory("");
+                    setCategory(category);
                     setNameProduct("");
                 });
         } catch (error) {
