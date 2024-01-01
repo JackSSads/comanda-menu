@@ -28,6 +28,10 @@ export const ListagemProdutos = () => {
     // lista atualizada de produtos - antigos + novos
     const [newProductsComanda, setNewProductsComanda] = useState([]);
 
+    // Estado que armazena o termo de filtro digitado
+    const [filtro, setFiltro] = useState('');
+
+
     useEffect(() => {
         getProductService();
         getComandatService();
@@ -97,7 +101,7 @@ export const ListagemProdutos = () => {
             newList[objEditedIndex] = objCloned;
             setAddProductsTiket(newList);
         } else {
-            toast.error("Primeiro + adicione o produto!");
+            toast.error("Primeiro + adicione o produto!", { duration: 1200 });
         };
     };
 
@@ -126,7 +130,7 @@ export const ListagemProdutos = () => {
 
             setAddProductsTiket(newList);
         } else {
-            toast.error("Primeiro + adicione o produto!");
+            toast.error("Primeiro + adicione o produto!", { duration: 1200 });
         };
     };
 
@@ -157,12 +161,20 @@ export const ListagemProdutos = () => {
             ComandaService.updateById(id, data)
                 .then(() => { navigate(`/garcom/comanda/${id}`); })
                 .catch((error) => { return toast.error(`Ocorreu um erro inesperado! ${error}`); });
-            
-                socket.emit("novo_pedido", client);
+
+            socket.emit("novo_pedido", client);
         } catch (error) {
             return toast.error("Ocorreu um erro inesperado!");
         };
     };
+
+    const handleFiltroChange = (event) => {
+        setFiltro(event.target.value);
+    };
+
+    const itensFiltrados = listProducts.filter(item =>
+        item.nameProduct.toLowerCase().includes(filtro.toLowerCase())
+    );
 
     return (
         <>
@@ -182,7 +194,19 @@ export const ListagemProdutos = () => {
                     >Adicionar</button>
                 </div>
 
-                {listProducts.map((e, index) => (
+                <div className="px-3 py-5 w-full rounded-xl shadow-md">
+                    <label>
+                        <input
+                            type="text"
+                            className="w-full border rounded-xl p-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            placeholder="Buscar produto..."
+                            onChange={(e) => handleFiltroChange(e)}
+                            value={filtro}
+                        />
+                    </label>
+                </div>
+
+                {itensFiltrados.map((e, index) => (
                     <div key={index} className="flex justify-between items-center px-3 py-5 w-full rounded-xl shadow-md">
 
                         <div className="w-2/3 flex flex-col items-start">
@@ -203,10 +227,9 @@ export const ListagemProdutos = () => {
                                     onClick={() => alterQnt(e._id, "-")}
                                 ><Minus /></button>
 
-                                {/* 
-                                Desativação temporária
-                                <p className="text-[#EB8F00] font-somibold">{addProductsTiket._id === e._id ? addProductsTiket.qnt : e.qnt}</p>
-                                */ }
+                                <p className="text-[#EB8F00] font-somibold">
+                                    {addProductsTiket.find(product => product._id === e._id)?.qnt || 0}
+                                </p>
 
                                 <button className="border-l-2 border-slate-500 text-slate-900 hover:text-[#EB8F00] transition-all delay-75"
                                     onClick={() => alterQnt(e._id, "+")}
