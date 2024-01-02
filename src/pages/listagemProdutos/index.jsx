@@ -31,7 +31,6 @@ export const ListagemProdutos = () => {
     // Estado que armazena o termo de filtro digitado
     const [filtro, setFiltro] = useState('');
 
-
     useEffect(() => {
         getProductService();
         getComandatService();
@@ -68,14 +67,22 @@ export const ListagemProdutos = () => {
         setNewProductsComanda([...addProductsTiket, ...getProductComanda]);
     };
 
-    const addProduct = (index) => {
+    const addProduct = (_id) => {
         // adicionar produtos
 
-        const newListProducts = [listProducts[index], ...addProductsTiket];
+        listProducts.forEach(item => {
+            if (item._id === _id) {
+                //console.log(item);
+                const newList = [item, ...addProductsTiket];
+                console.log(newList)
 
-        setAddProductsTiket(newListProducts);
+                setAddProductsTiket(newList);
 
-        toast("Adicionado", { icon: "😉", duration: 1200 });
+                toast("Adicionado", { icon: "😉", duration: 1200 });
+
+                return;
+            };
+        });
     };
 
     const removeProduct = (id) => {
@@ -238,7 +245,7 @@ export const ListagemProdutos = () => {
 
                             <div className="flex gap-5">
                                 <button className="text-[#1C1D26] p-2 rounded-md bg-[#EB8F00] hover:text-white hover:bg-[#1C1D26] transition-all delay-75"
-                                    onClick={() => addProduct(index)}
+                                    onClick={() => addProduct(e._id)}
                                 ><Plus /></button>
 
                                 <button className="text-slate-900 hover:text-[#EB8F00] transition-all delay-75"
