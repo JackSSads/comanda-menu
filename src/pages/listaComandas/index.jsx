@@ -51,7 +51,7 @@ export const ListaComandas = () => {
     // nova_comanda
     useEffect(() => {
         socket.on("nova_comanda", () => {
-            toast("Nova comanda");
+            toast("Nova comanda", { duration: 2000 });
             handleComandas();
         });
 
@@ -63,7 +63,7 @@ export const ListaComandas = () => {
         socket.on("comanda_finalizada", (data) => {
             toast((t) => (
                 <h6>Comanda <span className="font-semibold">{data}</span> finalizada</h6>
-            ));
+            ), { duration: 2000 });
             handleComandas();
         });
 
@@ -164,7 +164,7 @@ export const ListaComandas = () => {
                 <div>
                     <h5>Comanda <span className="font-semibold">{data.client}</span> cancelada</h5>
                 </div>
-            ));
+            ), { duration: 2000 });
         });
 
         handleComandas();

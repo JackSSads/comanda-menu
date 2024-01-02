@@ -47,7 +47,7 @@ export const Comanda = () => {
     // nova_comanda
     useEffect(() => {
         socket.on("nova_comanda", () => {
-            toast("Nova comanda");
+            toast("Nova comanda", { duration: 2000 });
             getDataComanda();
         });
 
@@ -59,7 +59,7 @@ export const Comanda = () => {
         socket.on("comanda_finalizada", (data) => {
             toast((t) => (
                 <h6>Comanda <span className="font-semibold">{data}</span> finalizada</h6>
-            ));
+            ), { duration: 2000 });
             getDataComanda();
         });
 
@@ -162,7 +162,7 @@ export const Comanda = () => {
                 <div>
                     <h5>Comanda <span className="font-semibold">{data.client}</span> cancelada</h5>
                 </div>
-            ));
+            ), { duration: 2000 });
             
             if(data.id === id) {
                 navigate(`/${funcao}/comandas`);

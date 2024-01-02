@@ -52,6 +52,7 @@ export const EditeProduto = () => {
             value,
             category,
             nameProduct,
+            totalPrice: value,
         };
 
         try {

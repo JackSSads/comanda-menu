@@ -26,7 +26,7 @@ export const Admin = () => {
         getAllData();
         let data = new Date();
         let dataFormatada = `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`;
-        
+
         setData(dataFormatada)
     }, []);
 
@@ -129,19 +129,15 @@ export const Admin = () => {
                 <Toaster />
                 <div className="flex justify-between bg-slate-100/20 py-5 px-1 w-[97%] my-10 rounded-md shadow-md gap-1">
 
-                    <button className="w-1/4 font-semibold text-white py-2 rounded-md hover:bg-[#EB8F00] hover:text-[#1C1d26] bg-[#1C1D26] transition-all delay-75"
-                        onClick={() => navigate("/novoProduto")}
-                    >Novo Poduto</button>
-
-                    <button className="w-1/4 font-semibold text-white py-2 rounded-md hover:bg-[#EB8F00] hover:text-[#1C1d26] bg-[#1C1D26] transition-all delay-75"
+                    <button className="w-1/3 font-semibold text-white py-2 rounded-md hover:bg-[#EB8F00] hover:text-[#1C1d26] bg-[#1C1D26] transition-all delay-75"
                         onClick={() => navigate("/editeProduto")}
-                    >Editar Produto</button>
+                    >Produtos</button>
 
-                    <button className="w-1/4 font-semibold text-white py-2 rounded-md hover:bg-[#EB8F00] hover:text-[#1C1d26] bg-[#1C1D26] transition-all delay-75"
+                    <button className="w-1/3 font-semibold text-white py-2 rounded-md hover:bg-[#EB8F00] hover:text-[#1C1d26] bg-[#1C1D26] transition-all delay-75"
                         onClick={() => navigate("/usuarios")}
-                    >Gerenciar usuários</button>
+                    >Usuários</button>
 
-                    <button className="w-1/4 font-semibold text-white py-2 rounded-md hover:bg-[#EB8F00] hover:text-[#1C1d26] bg-[#1C1D26] transition-all delay-75"
+                    <button className="w-1/3 font-semibold text-white py-2 rounded-md hover:bg-[#EB8F00] hover:text-[#1C1d26] bg-[#1C1D26] transition-all delay-75"
                         onClick={() => navigate("/garcom/comandas")}
                     >Comandas</button>
                 </div>
