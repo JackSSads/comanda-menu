@@ -52,7 +52,15 @@ export const ShowEditProdutos = () => {
         <>
             <Navbar title={"Edite Produtos"} url={"/admin"} />
             <div className="w-[95%] min-h-[85vh] pt-3 pb-[190px] px-3 rounded-xl flex items-center flex-col gap-6">
-            <Toaster />
+
+                <Toaster />
+
+                <div className="flex justify-center px-3 py-5 w-full rounded-xl shadow-md">
+                    <button className="font-semibold text-white py-2 px-5 rounded-md hover:bg-[#EB8F00] hover:text-[#1C1d26] bg-[#1C1D26] transition-all delay-75"
+                        onClick={() => navigate("/novoProduto")}
+                    >Novo Poduto</button>
+                </div>
+
                 {listProducts.length === 0 && (
                     <div className="font-semibold text-xl">Nem um produto foi encontrado</div>
                 )}
