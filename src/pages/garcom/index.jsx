@@ -64,21 +64,18 @@ export const Garcom = () => {
     // produto_pronto
     useEffect(() => {
         socket.on("produto_pronto", (data) => {
-            if (funcao === "garcom") {
-                toast((t) => (
-                    <div className="flex gap-3">
-                        <div className="flex flex-col justify-center items-center">
-                            <h6 className="text-center">Pedido <span className="font-semibold">{data.nameProduct}</span> pronto na comanda</h6>
-                            <span className="font-semibold">{data.client}</span>
-                        </div>
-                        <button className="bg-[#EB8F00] text-white rounded-md p-2"
-                            onClick={() => toast.dismiss(t.id)}
-                        >OK</button>
+            toast((t) => (
+                <div className="flex gap-3">
+                    <div className="flex flex-col justify-center items-center">
+                        <h6 className="text-center">Pedido <span className="font-semibold">{data.nameProduct}</span> pronto na comanda</h6>
+                        <span className="font-semibold">{data.client}</span>
                     </div>
-                ), { duration: 1000000 });
-            } else {
-                getDataComanda();
-            };
+                    <button className="bg-[#EB8F00] text-white rounded-md p-2"
+                        onClick={() => toast.dismiss(t.id)}
+                    >OK</button>
+                </div>
+            ), { duration: 1000000 });
+            getDataComanda();
         });
 
         return () => { socket.off("produto_pronto") };
