@@ -175,7 +175,8 @@ export const GerenciarUsuarios = () => {
                         onChange={(e) => handleInput(e.target.value, "func")}>
                         <option value={`garcom`} >Garçom</option>
                         <option value={`barmen`} >Barmen</option>
-                        <option value={`churrasqueiro`} >Churrasqueiro</option>
+                        <option value={`cozinha`} >Cozinha</option>
+                        <option value={`admin`} >Administrador</option>
                     </select>
                 </label>
 

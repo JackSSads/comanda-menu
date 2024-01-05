@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 import { Navbar } from "../../components";
@@ -7,6 +7,7 @@ import { ProdutoService } from "../../service/produto/ProdutoService";
 
 export const EditeProduto = () => {
 
+    const navigate = useNavigate();
     const [value, setValue] = useState(0);
     const [category, setCategory] = useState("");
     const [nameProduct, setNameProduct] = useState("");
@@ -41,6 +42,8 @@ export const EditeProduto = () => {
         } else if (action === "value") {
             setValue(onChange.target.value);
         };
+
+        console.log(category);
     };
 
     const updateById = () => {
@@ -59,7 +62,8 @@ export const EditeProduto = () => {
             ProdutoService.updateById(id, data)
                 .then((result) => {
                     if (result.status) {
-                        return toast.success("Produto atualizado");
+                        toast.success("Produto atualizado");
+                        return navigate("/editeProduto");
                     } else {
                         toast.error("Erro ao atualizar produto");
                     };
@@ -99,12 +103,15 @@ export const EditeProduto = () => {
                     <select className="w-[250px] border p-3 rounded-xl"
                         id={category}
                         name="category"
+                        defaultValue={`bebida`}
                         onChange={(e) => handleNewValues(e, "category")}>
                         <option value={`Bebida`} >Bebida</option>
-                        <option value={`Coquetel`} >Coquetel</option>
-                        <option value={`Drink`} >Drink</option>
-                        <option value={`Dose`} >Dose</option>
+                        <option value={`Drink`} >Sucos & Drinks</option>
                         <option value={`Petisco`} >Petisco</option>
+                        <option value={`Porcao`} >Porção</option>
+                        <option value={`Refeicao`} >Refeição</option>
+                        <option value={`Salada`} >Salada</option>
+                        <option value={`Doce`} >Doce</option>
                     </select>
                 </label>
 

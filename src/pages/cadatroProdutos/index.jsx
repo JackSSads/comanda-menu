@@ -42,7 +42,7 @@ export const CadastroProdutos = () => {
                     if (result.status) toast.success(result.message);
 
                     setValue("");
-                    setCategory(category);
+                    setCategory("");
                     setNameProduct("");
                 });
         } catch (error) {
@@ -52,7 +52,7 @@ export const CadastroProdutos = () => {
 
     return (
         <>
-            <Navbar title={"Cadastro de produtos"} url={"/admin"} />
+            <Navbar title={"Cadastro de produtos"} url={"/editeProduto"} />
             <div className="mx-10 flex justify-center items-center flex-col gap-5">
                 <Toaster />
                 <label className="text-slate-700 text-sm font-bold mb-2">
@@ -82,10 +82,12 @@ export const CadastroProdutos = () => {
                         defaultValue={`bebida`}
                         onChange={(e) => handleInput(e, "category")}>
                         <option value={`Bebida`} >Bebida</option>
-                        <option value={`Coquetel`} >Coquetel</option>
-                        <option value={`Drink`} >Drink</option>
-                        <option value={`Dose`} >Dose</option>
+                        <option value={`Drink`} >Sucos & Drinks</option>
                         <option value={`Petisco`} >Petisco</option>
+                        <option value={`Porcao`} >Porção</option>
+                        <option value={`Refeicao`} >Refeição</option>
+                        <option value={`Salada`} >Salada</option>
+                        <option value={`Doce`} >Doce</option>
                     </select>
                 </label>
 

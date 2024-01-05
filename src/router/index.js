@@ -3,7 +3,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import {
     Admin,
     Login,
-    Comanda,
+    Garcom,
+    Producao,
     EditeProduto,
     ListaComandas,
     ShowEditProdutos,
@@ -19,7 +20,10 @@ export const AppRoutes = () => {
         <Routes>
             <Route path="/login" element={<Login />} />
             <Route path={`/:funcao/comandas`} element={<ListaComandas />} />
-            <Route path={`/:funcao/comanda/:id`} element={<Comanda />} />
+            
+            <Route path={`/:funcao/producao`} element={<Producao />} />
+
+            <Route path={`/:funcao/comanda/:id`} element={<Garcom />} />
             <Route path={`/garcom/comanda/:id/add-product`} element={<ListagemProdutos />} />
             <Route path={`/garcom/comanda/:id/fechar-comanda`} element={<FinalizarComanda />} />
 

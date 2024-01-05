@@ -8,7 +8,7 @@ import socket from "../../service/socket";
 export const NovaComanda = () => {
 
     const [nameClient, setCliente] = useState("");
-    const [vessel, setEmbarcacao] = useState("Dunas");
+    const [vessel, setEmbarcacao] = useState("");
     const [buttonDisabled, setButtonDisabled] = useState(false);
 
     const { visibilitNewTicket, setVisibilitNewTicket } = usePage();
@@ -75,6 +75,20 @@ export const NovaComanda = () => {
                             placeholder="Nome do cliente"
                             onChange={(e) => handleValue("nameClient", e)}
                             value={nameClient}
+                        />
+                    </label>
+
+                    <label className="w-[270px] text-sm font-bold mb-2 text-slate-400">
+                        Indicação:
+                        <input
+                            className="text-white bg-transparent border border-[#393636] rounded-xl w-full p-3 leading-tight focus:outline-none focus:shadow-outline"
+                            type="text"
+                            id="indicacao"
+                            name="vessel"
+                            required
+                            placeholder="Quem indicou?"
+                            onChange={(e) => handleValue("vessel", e)}
+                            value={vessel}
                         />
                     </label>
                 </div>

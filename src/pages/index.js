@@ -1,6 +1,7 @@
 export { Admin } from "./admin";
 export { Login } from "./login";
-export { Comanda } from "./comanda";
+export { Garcom } from "./garcom";
+export { Producao } from "./producao";
 export { EditeProduto } from "./editeProduto";
 export { ListaComandas } from "./listaComandas";
 export { CadastroProdutos } from "./cadatroProdutos";

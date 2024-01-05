@@ -224,15 +224,14 @@ export const ListaComandas = () => {
                             </div>
 
                             <button className="p-2 rounded-md bg-[#1C1D26] text-white hover:text-[#1C1D26] hover:bg-[#EB8F00] transition-all delay-75"
+                                onClick={() => handleVisibilitNewTicket()}
                             ><Plus /></button>
                         </div>
                     )}
 
-                    {(visibilitButtonNewTicket && funcao === "garcom") ? (
-                        <button className="mt-[100px] flex gap-1 font-semibold rounded-xl p-3 bg-[#1C1D26] text-white hover:text-[#1C1D26] hover:bg-[#EB8F00] transition-all delay-75"
-                            onClick={() => handleVisibilitNewTicket()}
-                        ><Plus /> Nova comanda</button>
-                    ) : false}
+                    <button className="mt-[100px] flex gap-1 font-semibold rounded-xl p-3 bg-[#1C1D26] text-white hover:text-[#1C1D26] hover:bg-[#EB8F00] transition-all delay-75"
+                        onClick={() => handleVisibilitNewTicket()}
+                    ><Plus /> Nova comanda</button>
                 </div>
             ) : (
                 < NovaComanda />

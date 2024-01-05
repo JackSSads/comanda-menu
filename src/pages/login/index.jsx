@@ -39,6 +39,16 @@ export const Login = () => {
                         if (res.status) {
                             setEmail("");
                             setPass("");
+                            if (res.func === "barmen" || res.func === "cozinha") {
+                                navigate(`/${res.func}/producao`);
+                                return;
+                            };
+
+                            if (res.func === "admin") {
+                                navigate(`/admin`);
+                                return;
+                            };
+
                             navigate(`/${res.func}/comandas`);
                         } else {
                             toast.error("Email ou senha incorretos!");

@@ -29,7 +29,7 @@ export const ListagemProdutos = () => {
     const [newProductsComanda, setNewProductsComanda] = useState([]);
 
     // Estado que armazena o termo de filtro digitado
-    const [filtro, setFiltro] = useState('');
+    const [filtro, setFiltro] = useState("");
 
     useEffect(() => {
         getProductService();
@@ -74,7 +74,6 @@ export const ListagemProdutos = () => {
             if (item._id === _id) {
                 //console.log(item);
                 const newList = [item, ...addProductsTiket];
-                console.log(newList)
 
                 setAddProductsTiket(newList);
 
