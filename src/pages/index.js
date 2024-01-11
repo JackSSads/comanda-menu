@@ -9,3 +9,4 @@ export { ShowEditProdutos } from "./ShowEditProdutos";
 export { ListagemProdutos } from "./listagemProdutos";
 export { FinalizarComanda } from "./finalizarComanda";
 export { GerenciarUsuarios } from "./gerenciarUsuarios";
+export { ComandasFinalizadas } from "./ComandasFinalizadas";

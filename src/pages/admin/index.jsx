@@ -162,7 +162,9 @@ export const Admin = () => {
                     <div className="flex gap-10 flex-col">
                         <p className="text-2xl text-orange-600">Vendas</p>
 
-                        <div className="flex items-center gap-5 min-w-[300px] rounded-lg shadow-md px-5 justify-between bg-slate-100/20">
+                        <div className="flex items-center gap-5 min-w-[300px] rounded-lg shadow-md px-5 justify-between bg-slate-100/20 cursor-pointer"
+                        onClick={() => navigate("/comandasFinalizadas")}
+                        >
 
                             <Swath />
                             <div className="text-end">

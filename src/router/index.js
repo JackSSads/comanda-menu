@@ -12,6 +12,7 @@ import {
     FinalizarComanda,
     CadastroProdutos,
     GerenciarUsuarios,
+    ComandasFinalizadas,
 } from "../pages";
 
 export const AppRoutes = () => {
@@ -29,6 +30,7 @@ export const AppRoutes = () => {
 
             <Route path={`/admin`} element={<Admin />} />
             <Route path={`/usuarios`} element={<GerenciarUsuarios />} />
+            <Route path={`/comandasFinalizadas`} element={<ComandasFinalizadas />} />
         
             <Route path={`/novoProduto`} element={<CadastroProdutos />} />
             <Route path={`/editeProduto`} element={<ShowEditProdutos />} />
