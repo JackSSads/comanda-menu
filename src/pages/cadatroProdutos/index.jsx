@@ -52,7 +52,7 @@ export const CadastroProdutos = () => {
 
     return (
         <>
-            <Navbar title={"Cadastro de produtos"} url={"/editeProduto"} />
+            <Navbar title={`Comandas Fechadas`} url={`/admin`}/>
             <div className="mx-10 flex justify-center items-center flex-col gap-5">
                 <Toaster />
                 <label className="text-slate-700 text-sm font-bold mb-2">
