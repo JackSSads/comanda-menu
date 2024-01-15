@@ -79,7 +79,7 @@ export const NovaComanda = () => {
                     </label>
 
                     <label className="w-[270px] text-sm font-bold mb-2 text-slate-400">
-                        Indicação:
+                        Observação:
                         <input
                             className="text-white bg-transparent border border-[#393636] rounded-xl w-full p-3 leading-tight focus:outline-none focus:shadow-outline"
                             type="text"
