@@ -65,7 +65,6 @@ export const NovaComanda = () => {
                 <div className="flex flex-col items-center gap-3">
 
                     <label className="w-[270px] text-sm font-bold mb-2 text-slate-400">
-                        Cliente:
                         <input
                             className="text-white bg-transparent border border-[#393636] rounded-xl w-full p-3 leading-tight focus:outline-none focus:shadow-outline"
                             type="text"
@@ -79,14 +78,13 @@ export const NovaComanda = () => {
                     </label>
 
                     <label className="w-[270px] text-sm font-bold mb-2 text-slate-400">
-                        Observação:
                         <input
                             className="text-white bg-transparent border border-[#393636] rounded-xl w-full p-3 leading-tight focus:outline-none focus:shadow-outline"
                             type="text"
                             id="indicacao"
                             name="vessel"
                             required
-                            placeholder="Quem indicou?"
+                            placeholder="Observação"
                             onChange={(e) => handleValue("vessel", e)}
                             value={vessel}
                         />
