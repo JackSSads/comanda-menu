@@ -10,6 +10,9 @@ export const ShowEditProdutos = () => {
 
     const [listProducts, setListProducts] = useState([]);
 
+    // Estado que armazena o termo de filtro digitado
+    const [filtro, setFiltro] = useState("");
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -48,6 +51,14 @@ export const ShowEditProdutos = () => {
         };
     };
 
+    const handleFiltroChange = (event) => {
+        setFiltro(event.target.value);
+    };
+
+    const itensFiltrados = listProducts.filter(item =>
+        item.nameProduct.toLowerCase().includes(filtro.toLowerCase())
+    );
+
     return (
         <>
             <Navbar title={"Edite Produtos"} url={"/admin"} />
@@ -55,17 +66,26 @@ export const ShowEditProdutos = () => {
 
                 <Toaster />
 
-                <div className="flex justify-center px-3 py-5 w-full rounded-xl shadow-md">
+                <div className="flex flex-col-reverse justify-center gap-5 px-3 py-5 w-full rounded-xl shadow-md">
+                    <label>
+                        <input
+                            type="text"
+                            className="w-full border rounded-xl p-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            placeholder="Buscar produto..."
+                            onChange={(e) => handleFiltroChange(e)}
+                            value={filtro}
+                        />
+                    </label>
                     <button className="font-semibold text-white py-2 px-5 rounded-md hover:bg-[#EB8F00] hover:text-[#1C1d26] bg-[#1C1D26] transition-all delay-75"
                         onClick={() => navigate("/novoProduto")}
                     >Novo Poduto</button>
                 </div>
 
-                {listProducts.length === 0 && (
+                {itensFiltrados.length === 0 && (
                     <div className="font-semibold text-xl">Nem um produto foi encontrado</div>
                 )}
 
-                {listProducts.map((e) => (
+                {itensFiltrados.map((e) => (
                     <div key={e._id} className="flex justify-between bg-slate-100/20 items-center px-3 py-5 w-full rounded-xl shadow-md">
 
                         <div className="w-2/3 flex flex-col items-start">

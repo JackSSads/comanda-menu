@@ -157,7 +157,7 @@ export const FinalizarComanda = () => {
 
     return (
         <>
-            <Navbar title={`Fechar Comanda`} url={`/garcom/comanda/${id}`} />
+            <Navbar title={`Fechar Comanda: ${client}`} url={`/garcom/comanda/${id}`} />
             <div className="w-[95%] min-h-[100vh] m-2 p-1 rounded-xl flex items-center justify-center flex-col gap-14">
                 <Toaster />
                 <div className="px-10 py-14 rounded-md shadow-xl bg-[#D39825]/10">
