@@ -16,7 +16,8 @@ export const Admin = () => {
     const [totalProdutos, setTotalProdutos] = useState(0);
 
     const [totalPix, setTotalPix] = useState(0);
-    const [totalCartao, setTotalCartao] = useState(0);
+    const [totalDebito, setTotalDebito] = useState(0);
+    const [totalCredito, setTotalCredito] = useState(0);
     const [totalDinheiro, setTotalDinheiro] = useState(0);
     const [data, setData] = useState("");
 
@@ -48,27 +49,30 @@ export const Admin = () => {
                     setTotalProdutos(totalProdutos);
 
                     let totalPix = 0;
-                    let totalCartao = 0;
+                    let totalDebito = 0;
+                    let totalCredito = 0;
                     let totalDinheiro = 0;
 
                     for (let i = 0; i < result.data[0]["comandas"].length; i++) {
 
                         let pagForm = result.data[0]["comandas"][i]["pagForm"];
 
-                        if (pagForm === "pix") {
-                            totalPix += result.data[0]["comandas"][i]["totalValue"];
-
-                        } else if (pagForm === "dinheiro") {
-                            totalDinheiro += result.data[0]["comandas"][i]["totalValue"];
-
-                        } else if (pagForm === "cartao") {
-                            totalCartao += result.data[0]["comandas"][i]["totalValue"];
-
+                        switch (pagForm) {
+                            case "pix":
+                                totalPix += result.data[0]["comandas"][i]["totalValue"]; break;
+                            case "dinheiro":
+                                totalDinheiro += result.data[0]["comandas"][i]["totalValue"]; break;
+                            case "credito":
+                                totalCredito += result.data[0]["comandas"][i]["totalValue"]; break
+                            case "debito":
+                                totalDebito += result.data[0]["comandas"][i]["totalValue"]; break;
+                            default: return;
                         };
                     };
 
                     setTotalPix(parseFloat(totalPix).toFixed(2).replace(".", ","));
-                    setTotalCartao(parseFloat(totalCartao).toFixed(2).replace(".", ","));
+                    setTotalDebito(parseFloat(totalDebito).toFixed(2).replace(".", ","));
+                    setTotalCredito(parseFloat(totalCredito).toFixed(2).replace(".", ","));
                     setTotalDinheiro(parseFloat(totalDinheiro).toFixed(2).replace(".", ","));
                 });
         } catch (error) {
@@ -116,7 +120,8 @@ export const Admin = () => {
         janelaDeImpressao.document.write(`<p>Vendas por categoria</p>`);
         janelaDeImpressao.document.write(`<p>Pix: <b>R$ ${totalPix}</b></p>`);
         janelaDeImpressao.document.write(`<p>Dineiro: <b>R$ ${totalDinheiro}</b></p>`);
-        janelaDeImpressao.document.write(`<p>Cartão: <b>R$ ${totalCartao}</b></p>`);
+        janelaDeImpressao.document.write(`<p>Cartão Crédito: <b>R$ ${totalCredito}</b></p>`);
+        janelaDeImpressao.document.write(`<p>Cartão Débito: <b>R$ ${totalDebito}</b></p>`);
         janelaDeImpressao.document.write('</body></html>');
         janelaDeImpressao.document.close();
         janelaDeImpressao.print();
@@ -163,7 +168,7 @@ export const Admin = () => {
                         <p className="text-2xl text-orange-600">Vendas</p>
 
                         <div className="flex items-center gap-5 min-w-[300px] rounded-lg shadow-md px-5 justify-between bg-slate-100/20 cursor-pointer"
-                        onClick={() => navigate("/comandasFinalizadas")}
+                            onClick={() => navigate("/comandasFinalizadas")}
                         >
 
                             <Swath />
@@ -208,8 +213,17 @@ export const Admin = () => {
 
                             <Card />
                             <div className="text-end">
-                                <p className="text-slate-400">Cartão</p>
-                                <p className="text-2xl">R$ {totalCartao}</p>
+                                <p className="text-slate-400">Cartão Crédito</p>
+                                <p className="text-2xl">R$ {totalCredito}</p>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center gap-5 min-w-[300px] rounded-lg shadow-md px-5 justify-between bg-slate-100/20">
+
+                            <Card />
+                            <div className="text-end">
+                                <p className="text-slate-400">Cartão Débito</p>
+                                <p className="text-2xl">R$ {totalDebito}</p>
                             </div>
                         </div>
                     </div>

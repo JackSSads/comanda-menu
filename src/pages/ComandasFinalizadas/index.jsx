@@ -31,7 +31,7 @@ export const ComandasFinalizadas = () => {
 
     return (
         <>
-            <Navbar title={`Todas as comandas`} />
+            <Navbar title={`Comandas Fechadas`} url={`/admin`} />
 
             <div className="w-[95%] min-h-[90vh] py-3 px-5 rounded-xl flex items-center flex-col gap-5">
                 <Toaster />
@@ -44,7 +44,14 @@ export const ComandasFinalizadas = () => {
                             <h3 className="text-slate-400 font-semibold">{e.vessel}</h3>
                             <h4 className="text-slate-500 text-[15px] font-semibold">
                                 <span className="font-bold text-[#EB8F00]">Total:</span> R$ {e.totalValue.toFixed(2).replace(".", ",")}</h4>
-                            <p>{e.status ? "" : "Encerrada"}</p>
+                            <p className="text-slate-500 text-[15px] font-semibold">Pagamento:
+                                <span className="font-bold text-[#EB8F00]"> {
+                                e.pagForm === "credito" ? "Crédito" : 
+                                e.pagForm === "debito" ? "Débito" : 
+                                e.pagForm === "pix" ? "Pix" : 
+                                e.pagForm === "dinheiro" ? "Dinheiro" : 
+                                ""}</span>
+                            </p>
                         </div>
 
                         <button className=" p-2 rounded-md bg-[#1C1D26] text-white hover:text-[#1C1D26] hover:bg-[#EB8F00] transition-all delay-75"

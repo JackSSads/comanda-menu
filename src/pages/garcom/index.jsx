@@ -14,7 +14,8 @@ export const Garcom = () => {
     const [listData, setListData] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [client, setClient] = useState("");
-
+    const [statusComanda, setStatusComanda] = useState(true);
+    
     useEffect(() => {
         getDataComanda();
     }, [totalPrice, id]);
@@ -68,7 +69,7 @@ export const Garcom = () => {
                 <div className="flex gap-3">
                     <div className="flex flex-col justify-center items-center">
                         <h6 className="text-center">Pedido <span className="font-semibold">{data.nameProduct}</span> pronto na comanda</h6>
-                        <span className="font-semibold">{data.client}</span>
+                        <span className="font-semibold">{data.nameClient}</span>
                     </div>
                     <button className="bg-[#EB8F00] text-white rounded-md p-2"
                         onClick={() => toast.dismiss(t.id)}
@@ -104,43 +105,19 @@ export const Garcom = () => {
     // alterar_quantidade
     useEffect(() => {
         socket.on("alterar_quantidade", (data) => {
-
-            if ((data.product.category === "Bebida" || data.product.category === "Drink" || data.product.category === "Dose")
-                && funcao === "barmen") {
-
-                toast((t) => (
-                    <div className="flex gap-3">
-                        <div className="flex flex-col items-center">
-                            <h6><span className="font-semibold">{data.action} {data.product.nameProduct}</span> na comanda</h6>
-                            <span className="font-semibold">{data.client}</span>
-                        </div>
-                        <button className="bg-[#EB8F00] text-white rounded-md p-2"
-                            onClick={() => toast.dismiss(t.id)}
-                        >OK</button>
+            toast((t) => (
+                <div className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                        <h6><span className="font-semibold">{data.action} {data.product.nameProduct}</span> na comanda</h6>
+                        <span className="font-semibold">{data.client}</span>
                     </div>
-                ), { duration: 1000000 });
+                    <button className="bg-[#EB8F00] text-white rounded-md p-2"
+                        onClick={() => toast.dismiss(t.id)}
+                    >OK</button>
+                </div>
+            ), { duration: 1000000 });
 
-                getDataComanda();
-
-                return () => { socket.off("alterar_quantidade") };
-            } else if (data.product.category === "Petisco" && funcao === "churrasqueiro") {
-
-                toast((t) => (
-                    <div className="flex gap-3">
-                        <div className="flex flex-col items-center">
-                            <h6><span className="font-semibold">{data.action} {data.product.nameProduct}</span> na comanda</h6>
-                            <span className="font-semibold">{data.client}</span>
-                        </div>
-                        <button className="bg-[#EB8F00] text-white rounded-md p-2"
-                            onClick={() => toast.dismiss(t.id)}
-                        >OK</button>
-                    </div>
-                ), { duration: 1000000 });
-
-                getDataComanda();
-
-                return () => { socket.off("alterar_quantidade") };
-            };
+            getDataComanda();
 
             return () => { socket.off("alterar_quantidade") };
         });
@@ -158,9 +135,8 @@ export const Garcom = () => {
             if (data.id === id) {
                 navigate(`/${funcao}/comandas`);
             };
+            getDataComanda();
         });
-
-        getDataComanda();
 
         return () => { socket.off("comanda_cancelada") };
     }, []);
@@ -172,6 +148,11 @@ export const Garcom = () => {
                     setClient(result.data.nameClient);
                     setListData(result.data.products);
                     setTotalPrice(parseFloat(result.data.totalValue).toFixed(2).replace(".", ","));
+                    
+                    // verificando status da comanda
+                    if (!result.data.status) {
+                        setStatusComanda(false);
+                    };
                 }).catch((error) => { return toast.error(`Ocorreu um erro inesperado! ${error}`); });
         } catch (error) {
             return toast.error("Erro ao consultar o Banco de Dados");
@@ -249,7 +230,7 @@ export const Garcom = () => {
 
     return (
         <>
-            <Navbar title={`Cliente: ${client}`} url={`/${funcao}/comandas`} />
+            <Navbar title={`Cliente: ${client}`} url={statusComanda ? `/${funcao}/comandas` : "/comandasFinalizadas"} />
 
             <div className="w-[95%] min-h-[85vh] pt-3 pb-[190px] px-3 rounded-xl flex items-center flex-col gap-10">
                 <Toaster />

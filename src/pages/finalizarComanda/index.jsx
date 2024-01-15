@@ -23,6 +23,7 @@ export const FinalizarComanda = () => {
     const [uniao, setUniao] = useState([]);
 
     const [selPagId, setSelPagId] = useState("pix");
+    const [statusComanda, setStatusComanda] = useState(true);
 
     useEffect(() => {
         getComanda();
@@ -30,8 +31,19 @@ export const FinalizarComanda = () => {
     }, []);
 
     useEffect(() => {
+        for (let i = 0; i < caixa.length; i++) {
+
+            // verificando se comanda já existe no caixa
+            if (caixa[i]._id === id) {
+
+                const deleteComanda = caixa.filter(item => item._id !== id);
+
+                setCaixa(deleteComanda);
+            };
+        };
 
         const newComanda = {
+            _id: id,
             nameClient: client,
             pagForm: selPagId,
             products,
@@ -41,7 +53,7 @@ export const FinalizarComanda = () => {
         };
 
         setUniao(() => [...caixa, newComanda]);
-    }, [caixa, comanda, selPagId]);
+    }, [client, caixa, selPagId]);
 
     const getComanda = useCallback(() => {
 
@@ -53,6 +65,11 @@ export const FinalizarComanda = () => {
                     setProducts(result.data.products);
                     setVessel(result.data.vessel);
                     setComanda(result.data);
+
+                    // verificando status da comanda
+                    if (!result.data.status) {
+                        setStatusComanda(false);
+                    };
                 });
 
         } catch (error) {
@@ -117,7 +134,11 @@ export const FinalizarComanda = () => {
             CaixaService.updateById(idCaixa, obj)
                 .then(() => {
                     socket.emit("comanda_finalizada", client);
-                    navigate("/garcom/comandas");
+                    if (statusComanda) {
+                        navigate("/garcom/comandas");
+                    };
+
+                    navigate("/comandasFinalizadas");
                 });
         } catch (error) {
             toast.error("Ocorreu um erro na comunicação com o DB");
@@ -152,7 +173,7 @@ export const FinalizarComanda = () => {
                     <h2 className="mt-5 text-center text-slate-900 font-bold text-[22px]">
                         Consumo: <span className="text-slate-500">R$ {parseFloat(totalValue).toFixed(2).replace(".", ",")}</span>
                     </h2>
-<h2 className="flex flex-col mt-5 text-center text-slate-900 font-bold text-[28px]">
+                    <h2 className="flex flex-col mt-5 text-center text-slate-900 font-bold text-[28px]">
                         Total + 10%: <span className="text-slate-500">R$ {parseFloat(totalValue + (totalValue * 0.1)).toFixed(2).replace(".", ",")}</span>
                     </h2>
                 </div>
@@ -166,13 +187,14 @@ export const FinalizarComanda = () => {
                         onChange={(e) => setSelPagId(e.target.value)}>
                         <option value={`pix`} >Pix</option>
                         <option value={`dinheiro`} >Dinheiro</option>
-                        <option value={`cartao`} >Cartão</option>
+                        <option value={`credito`} >Crédito</option>
+                        <option value={`debito`} >Débito</option>
                     </select>
                 </label>
 
                 <button className="w-[250px] p-3 font-semibold text-[#1C1D26] rounded-xl bg-[#EB8F00] hover:bg-[#1C1D26] hover:text-white transition-all delay-75"
                     onClick={() => closeComanda()}
-                >Finalizar Comanda</button>
+                >{statusComanda ? "Finalizar Comanda" : "Atualizar Comanda"}</button>
 
                 <button className="mt-20 w-[250px] p-3 font-semibold rounded-xl bg-red-600 text-white transition-all delay-75"
                     onClick={() => cancelarComanda()}
