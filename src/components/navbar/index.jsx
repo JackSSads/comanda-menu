@@ -4,7 +4,7 @@ import { Back, ArrowRight } from "../../libs/icons";
 
 export const Navbar = ({ title, url, isLogout }) => {
 
-    const logoutButton = isLogout;
+    const logoutButton = isLogout ? true : false;
 
     const navigate = useNavigate();
 

@@ -191,7 +191,7 @@ export const ListaComandas = () => {
 
     return (
         <>
-            <Navbar title={`Todas as comandas`} isLogout={true}/>
+            <Navbar title={`Todas as comandas`} isLogout />
 
             {!visibilitNewTicket ? (
                 <div className="w-[95%] min-h-[90vh] py-3 px-5 rounded-xl flex items-center flex-col gap-5">
