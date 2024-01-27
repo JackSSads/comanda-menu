@@ -1,20 +1,17 @@
 import { useEffect } from "react";
-import toast from "react-hot-toast";
 
-import { usePage, useCloseTicket } from "../../contexts";
+import { usePage } from "../../contexts";
 import { useParams, useNavigate } from "react-router-dom";
 
 export const Footer = ({ urlRedirect, valorTotal, data }) => {
 
     const navigate = useNavigate();
     const { funcao } = useParams();
-    const { toggleFinalValue } = useCloseTicket();
     const { currentPage, setCurrentPage } = usePage();
 
     useEffect(() => {
         setCurrentPage(funcao);
-        toggleFinalValue(valorTotal, data);
-    }, [toggleFinalValue, valorTotal, data, currentPage, funcao, setCurrentPage]);
+    }, [valorTotal, data, currentPage, funcao, setCurrentPage]);
 
     const handleRedirect = () => {
         navigate(urlRedirect);

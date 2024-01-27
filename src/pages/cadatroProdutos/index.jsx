@@ -12,12 +12,20 @@ export const CadastroProdutos = () => {
     const [category, setCategory] = useState("Bebida");
 
     const handleInput = (onChange, action) => {
-        if (action === "name") {
+        switch (action) {
+            case "name": 
             setNameProduct(onChange.target.value);
-        } else if (action === "value") {
+            break;
+
+            case "value": 
             setValue(onChange.target.value);
-        } else if (action === "category") {
+            break;
+
+            case "category": 
             setCategory(onChange.target.value);
+            break;
+
+            default: return;
         };
     };
 
@@ -52,7 +60,7 @@ export const CadastroProdutos = () => {
 
     return (
         <>
-            <Navbar title={`Comandas Fechadas`} url={`/admin`}/>
+            <Navbar title={`Comandas Fechadas`} url={"/editeProduto"}/>
             <div className="mx-10 flex justify-center items-center flex-col gap-5">
                 <Toaster />
                 <label className="text-slate-700 text-sm font-bold mb-2">

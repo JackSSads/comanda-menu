@@ -182,7 +182,7 @@ export const Producao = () => {
 
     return (
         <>
-            <Navbar title={`Pedidos: ${funcao}`} />
+            <Navbar title={`Pedidos: ${funcao}`} isLogout={true}/>
             <Toaster />
             <div className="w-[95%] min-h-[85vh] pt-3 pb-[190px] px-3 rounded-xl flex items-center flex-col gap-10">
                 {allProduts.length > 0 ? allProduts.map((e, indexComanda) => (

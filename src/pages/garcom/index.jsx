@@ -230,7 +230,7 @@ export const Garcom = () => {
 
     return (
         <>
-            <Navbar title={`Cliente: ${client}`} url={statusComanda ? `/${funcao}/comandas` : "/comandasFinalizadas"} />
+            <Navbar title={`Cliente: ${client}`} url={statusComanda ? `/${funcao}/comandas` : "/comandasFinalizadas"} isLogout={false}/>
 
             <div className="w-[95%] min-h-[85vh] pt-3 pb-[190px] px-3 rounded-xl flex items-center flex-col gap-10">
                 <Toaster />

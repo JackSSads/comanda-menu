@@ -8,65 +8,67 @@ import { LoginService } from "../../service/login/LoginService";
 export const Login = () => {
 
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [pass, setPass] = useState("");
 
-    const handleInput = (input, e) => {
-        if (input === "email") {
-            setEmail(e.target.value);
-        } else if (input === "pass") {
-            setPass(e.target.value);
+    const [value, setValue] = useState({
+        email: "",
+        pass: ""
+    });
+
+    const handleInput = (onChange, e) => {
+        switch (onChange) {
+            case "email":
+                setValue(prev => ({ ...prev, email: e.target.value }))
+                break;
+
+            case "pass":
+                setValue(prev => ({ ...prev, pass: e.target.value }))
+                break;
+
+            default: return;
         };
     };
 
-    const checkData = async () => {
-        const data = { email, pass, };
+    const login = async () => {
 
-        if (data.email === "" || data.pass === "") {
+        if (value.email === "" || value.pass === "") {
             return toast.error("Preencha todos os campos corretamente!");
         };
 
-        if (data.email && data.pass) {
+        try {
 
-            try {
-                const dataLogin = {
-                    email: data.email,
-                    pass: data.pass,
-                };
+            await LoginService.login(value)
+                .then(res => {
 
-                await LoginService.login(dataLogin)
-                    .then(res => {
-                        if (res.status) {
-                            setEmail("");
-                            setPass("");
-                            if (res.func === "barmen" || res.func === "cozinha") {
-                                navigate(`/${res.func}/producao`);
-                                return;
-                            };
+                    if (res.status) {
+                        setValue({
+                            email: "",
+                            pass: ""
+                        });
 
-                            if (res.func === "admin") {
-                                navigate(`/admin`);
-                                return;
-                            };
-
-                            navigate(`/${res.func}/comandas`);
-                        } else {
-                            toast.error("Email ou senha incorretos!");
+                        if (res.func === "barmen" || res.func === "cozinha") {
+                            navigate(`/${res.func}/producao`);
+                            return;
                         };
-                    });
 
-            } catch (error) {
-                toast.error("Ocorreu um erro inesperado!");
-            };
+                        if (res.func === "admin") {
+                            navigate(`/admin`);
+                            return;
+                        };
 
-        } else {
-            toast.error("Email ou senha incorretos!");
+                        navigate(`/${res.func}/comandas`);
+                    } else {
+                        toast.error("Email ou senha incorretos!");
+                    };
+                });
+
+        } catch (error) {
+            toast.error("Ocorreu um erro inesperado!");
         };
     };
 
     return (
         <div className="h-full w-full">
-            <Navbar title="Comandas Ada Up Soft" />
+            <Navbar title="Dunas Comandas" />
             <div className="h-full flex justify-center items-center flex-col">
                 <Toaster />
                 <div className="mb-4">
@@ -78,7 +80,7 @@ export const Login = () => {
                             className="w-[250px] border rounded-xl p-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="E-mail"
                             onChange={(e) => handleInput("email", e)}
-                            value={email}
+                            value={value.email}
                         />
                     </label>
                 </div>
@@ -92,14 +94,14 @@ export const Login = () => {
                             className="w-[250px] border rounded-xl p-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Senha"
                             onChange={(e) => handleInput("pass", e)}
-                            value={pass}
+                            value={value.pass}
                         />
                     </label>
                 </div>
 
-                <button className="w-[250px] font-semibold p-3 rounded-xl text-white bg-[#1C1D26] hover:bg-[#EB8F00] hover:text-[#1C1D26]"
-                    onClick={() => checkData()}
-                >LOGIN</button>
+                <button className="w-[250px] font-semibold p-3 rounded-xl text-white bg-[#1C1D26] hover:bg-[#EB8F00] hover:text-[#1C1D26] uppercase"
+                    onClick={() => login()}
+                >Login</button>
             </div>
         </div>
     );

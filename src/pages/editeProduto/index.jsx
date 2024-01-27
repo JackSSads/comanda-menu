@@ -35,15 +35,21 @@ export const EditeProduto = () => {
     }, []);
 
     const handleNewValues = (onChange, action) => {
-        if (action === "nameProduct") {
+        switch (action) {
+            case "name": 
             setNameProduct(onChange.target.value);
-        } else if (action === "category") {
-            setCategory(onChange.target.value);
-        } else if (action === "value") {
-            setValue(onChange.target.value);
-        };
+            break;
 
-        console.log(category);
+            case "value": 
+            setValue(onChange.target.value);
+            break;
+
+            case "category": 
+            setCategory(onChange.target.value);
+            break;
+
+            default: return;
+        };
     };
 
     const updateById = () => {
