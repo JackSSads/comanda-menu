@@ -25,10 +25,9 @@ export const Admin = () => {
 
     useEffect(() => {
         getAllData();
-        let data = new Date();
-        let dataFormatada = `${data.getDate()}/${data.getMonth()}/${data.getFullYear()}`;
+         let data = new Date().toLocaleDateString("pt-BR");
 
-        setData(dataFormatada)
+        setData(data)
     }, []);
 
     const getAllData = useCallback(() => {
