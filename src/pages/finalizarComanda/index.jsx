@@ -136,9 +136,9 @@ export const FinalizarComanda = () => {
                     socket.emit("comanda_finalizada", client);
                     if (statusComanda) {
                         navigate("/garcom/comandas");
+                    } else {
+                        navigate("/comandasFinalizadas");
                     };
-
-                    navigate("/comandasFinalizadas");
                 });
         } catch (error) {
             toast.error("Ocorreu um erro na comunicação com o DB");
