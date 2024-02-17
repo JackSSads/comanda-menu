@@ -67,7 +67,7 @@ export const ShowEditProdutos = () => {
                 <Toaster />
 
                 <div className="flex flex-col-reverse justify-center gap-5 px-3 py-5 w-full rounded-xl shadow-md">
-                    <label>
+                    <label className="flex gap-2 items-center">
                         <input
                             type="text"
                             className="w-full border rounded-xl p-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -75,6 +75,7 @@ export const ShowEditProdutos = () => {
                             onChange={(e) => handleFiltroChange(e)}
                             value={filtro}
                         />
+                        <i onClick={() => setFiltro("")}><Close /></i>
                     </label>
                     <button className="font-semibold text-white py-2 px-5 rounded-md hover:bg-[#EB8F00] hover:text-[#1C1d26] bg-[#1C1D26] transition-all delay-75"
                         onClick={() => navigate("/novoProduto")}
