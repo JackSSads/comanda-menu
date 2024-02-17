@@ -201,7 +201,7 @@ export const ListagemProdutos = () => {
                 </div>
 
                 <div className="px-3 py-5 w-full rounded-xl shadow-md">
-                    <label>
+                    <label className="flex gap-2 items-center">
                         <input
                             type="text"
                             className="w-full border rounded-xl p-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -209,6 +209,7 @@ export const ListagemProdutos = () => {
                             onChange={(e) => handleFiltroChange(e)}
                             value={filtro}
                         />
+                        <i onClick={() => setFiltro("")}><Close /></i>
                     </label>
                 </div>
 
