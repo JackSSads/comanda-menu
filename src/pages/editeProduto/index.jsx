@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 import { Navbar } from "../../components";
@@ -7,7 +7,6 @@ import { ProdutoService } from "../../service/produto/ProdutoService";
 
 export const EditeProduto = () => {
 
-    const navigate = useNavigate();
     const [value, setValue] = useState(0);
     const [category, setCategory] = useState("");
     const [nameProduct, setNameProduct] = useState("");
@@ -35,20 +34,12 @@ export const EditeProduto = () => {
     }, []);
 
     const handleNewValues = (onChange, action) => {
-        switch (action) {
-            case "name": 
+        if (action === "nameProduct") {
             setNameProduct(onChange.target.value);
-            break;
-
-            case "value": 
-            setValue(onChange.target.value);
-            break;
-
-            case "category": 
+        } else if (action === "category") {
             setCategory(onChange.target.value);
-            break;
-
-            default: return;
+        } else if (action === "value") {
+            setValue(onChange.target.value);
         };
     };
 
@@ -68,8 +59,7 @@ export const EditeProduto = () => {
             ProdutoService.updateById(id, data)
                 .then((result) => {
                     if (result.status) {
-                        toast.success("Produto atualizado");
-                        return navigate("/editeProduto");
+                        return toast.success("Produto atualizado");
                     } else {
                         toast.error("Erro ao atualizar produto");
                     };
@@ -109,15 +99,12 @@ export const EditeProduto = () => {
                     <select className="w-[250px] border p-3 rounded-xl"
                         id={category}
                         name="category"
-                        defaultValue={`bebida`}
                         onChange={(e) => handleNewValues(e, "category")}>
                         <option value={`Bebida`} >Bebida</option>
-                        <option value={`Drink`} >Sucos & Drinks</option>
+                        <option value={`Coquetel`} >Coquetel</option>
+                        <option value={`Drink`} >Drink</option>
+                        <option value={`Dose`} >Dose</option>
                         <option value={`Petisco`} >Petisco</option>
-                        <option value={`Porcao`} >Porção</option>
-                        <option value={`Refeicao`} >Refeição</option>
-                        <option value={`Salada`} >Salada</option>
-                        <option value={`Doce`} >Doce</option>
                     </select>
                 </label>
 
