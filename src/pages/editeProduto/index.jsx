@@ -101,10 +101,12 @@ export const EditeProduto = () => {
                         name="category"
                         onChange={(e) => handleNewValues(e, "category")}>
                         <option value={`Bebida`} >Bebida</option>
-                        <option value={`Coquetel`} >Coquetel</option>
-                        <option value={`Drink`} >Drink</option>
-                        <option value={`Dose`} >Dose</option>
+                        <option value={`Drink`} >Sucos & Drinks</option>
                         <option value={`Petisco`} >Petisco</option>
+                        <option value={`Porcao`} >Porção</option>
+                        <option value={`Refeicao`} >Refeição</option>
+                        <option value={`Salada`} >Salada</option>
+                        <option value={`Doce`} >Doce</option>
                     </select>
                 </label>
 
