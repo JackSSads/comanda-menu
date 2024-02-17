@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 import { Navbar } from "../../components/navbar";
-import { Plus, Delete, Minus } from "../../libs/icons";
+import { Plus, Delete, Minus, Close } from "../../libs/icons";
 import { ProdutoService } from "../../service/produto/ProdutoService";
 import { ComandaService } from "../../service/comanda/ComandaService";
 import socket from "../../service/socket";
