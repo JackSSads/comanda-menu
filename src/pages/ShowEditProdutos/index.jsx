@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 import { Navbar } from "../../components";
-import { Delete, Edit } from "../../libs/icons";
+import { Delete, Edit, Close } from "../../libs/icons";
 import { ProdutoService } from "../../service/produto/ProdutoService";
 
 export const ShowEditProdutos = () => {
