@@ -194,8 +194,12 @@ export const FinalizarComanda = () => {
                         ))}
                     </ul>
 
-                    <h2 className="mt-5 text-center text-slate-900 font-bold text-[28px]">
+                    <h2 className="mt-5 text-center text-slate-900 font-bold text-[22px]">
                         Total: <span className="text-slate-500">R$ {parseFloat(totalValue).toFixed(2).replace(".", ",")}</span>
+                    </h2>
+                    
+                     <h2 className="mt-5 text-center text-slate-900 font-bold text-[28px] flex-wrap">
+                        Total + 10%: <span className="text-slate-500">R$ {parseFloat(totalValue * 1.1).toFixed(2).replace(".", ",")}</span>
                     </h2>
                 </div>
 
