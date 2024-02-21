@@ -133,12 +133,12 @@ export const FinalizarComanda = () => {
         try {
             CaixaService.updateById(idCaixa, obj)
                 .then(() => {
+                    socket.emit("comanda_finalizada", client);
                     if (statusComanda) {
-                        socket.emit("comanda_finalizada", client);
                         navigate("/garcom/comandas");
-                    } else {
-                        navigate("/comandasFinalizadas");
                     };
+
+                    navigate("/comandasFinalizadas");
                 });
         } catch (error) {
             toast.error("Ocorreu um erro na comunicação com o DB");
@@ -147,33 +147,9 @@ export const FinalizarComanda = () => {
 
     const cancelarComanda = () => {
         try {
-
-            let totalValueCalculed = 0;
-
-            for (let i = 0; i < caixa.length; i++) {
-                let soma = caixa[i]["totalValue"];
-
-                totalValueCalculed += soma;
-            };
-
-            const obj = {
-                _id: idCaixa,
-                comandas: caixa,
-                totalValue: totalValueCalculed,
-                status: false
-            };
-
-            CaixaService.updateById(idCaixa, obj);
-
             ComandaService.deleteById(id);
-
-            if (statusComanda) {
-                socket.emit("comanda_cancelada", { client, id });
-                navigate("/garcom/comandas");
-            } else {
-                navigate("/comandasFinalizadas");
-            };
-
+            socket.emit("comanda_cancelada", { client, id });
+            navigate("/garcom/comandas");
         } catch (error) {
             toast.error("Ocorreu um erro na comunicação com o DB");
         };
@@ -197,9 +173,8 @@ export const FinalizarComanda = () => {
                     <h2 className="mt-5 text-center text-slate-900 font-bold text-[22px]">
                         Consumo: <span className="text-slate-500">R$ {parseFloat(totalValue).toFixed(2).replace(".", ",")}</span>
                     </h2>
-                    
-                     <h2 className="mt-5 text-center text-slate-900 font-bold text-[28px] flex flex-col">
-                        <span>Total + 10%:</span><span className="text-slate-500">R$ {parseFloat(totalValue * 1.1).toFixed(2).replace(".", ",")}</span>
+                    <h2 className="flex flex-col mt-5 text-center text-slate-900 font-bold text-[28px]">
+                        Total + 10%: <span className="text-slate-500">R$ {parseFloat(totalValue + (totalValue * 0.1)).toFixed(2).replace(".", ",")}</span>
                     </h2>
                 </div>
 
