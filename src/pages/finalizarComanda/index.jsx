@@ -212,7 +212,8 @@ export const FinalizarComanda = () => {
                         onChange={(e) => setSelPagId(e.target.value)}>
                         <option value={`pix`} >Pix</option>
                         <option value={`dinheiro`} >Dinheiro</option>
-                        <option value={`cartao`} >Cartão</option>
+                        <option value={`credito`} >Crédito</option>
+                        <option value={`debito`} >Débito</option>
                     </select>
                 </label>
 
