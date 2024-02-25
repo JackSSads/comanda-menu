@@ -133,12 +133,12 @@ export const FinalizarComanda = () => {
         try {
             CaixaService.updateById(idCaixa, obj)
                 .then(() => {
-                    socket.emit("comanda_finalizada", client);
-                    if (statusComanda) {
+                                        if (statusComanda) {
+                        socket.emit("comanda_finalizada", client);
                         navigate("/garcom/comandas");
+                    } else {
+                        navigate("/comandasFinalizadas");
                     };
-
-                    navigate("/comandasFinalizadas");
                 });
         } catch (error) {
             toast.error("Ocorreu um erro na comunicação com o DB");
