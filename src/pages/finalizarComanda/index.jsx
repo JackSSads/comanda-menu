@@ -130,10 +130,10 @@ export const FinalizarComanda = () => {
             totalValue: totalValueCalculed
         };
 
-        try {
+       try {
             CaixaService.updateById(idCaixa, obj)
                 .then(() => {
-                                        if (statusComanda) {
+                    if (statusComanda) {
                         socket.emit("comanda_finalizada", client);
                         navigate("/garcom/comandas");
                     } else {
@@ -146,10 +146,34 @@ export const FinalizarComanda = () => {
     };
 
     const cancelarComanda = () => {
-        try {
+       try {
+
+            let totalValueCalculed = 0;
+
+            for (let i = 0; i < caixa.length; i++) {
+                let soma = caixa[i]["totalValue"];
+
+                totalValueCalculed += soma;
+            };
+
+            const obj = {
+                _id: idCaixa,
+                comandas: caixa,
+                totalValue: totalValueCalculed,
+                status: false
+            };
+
+            CaixaService.updateById(idCaixa, obj);
+
             ComandaService.deleteById(id);
-            socket.emit("comanda_cancelada", { client, id });
-            navigate("/garcom/comandas");
+
+            if (statusComanda) {
+                socket.emit("comanda_cancelada", { client, id });
+                navigate("/garcom/comandas");
+            } else {
+                navigate("/comandasFinalizadas");
+            };
+
         } catch (error) {
             toast.error("Ocorreu um erro na comunicação com o DB");
         };
